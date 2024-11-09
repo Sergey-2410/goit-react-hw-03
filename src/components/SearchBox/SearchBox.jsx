@@ -1,7 +1,7 @@
 import s from './SearchBox.module.css';
 const SearchBox = ({ dataRequest }) => {
   return (
-    <div>
+    <div className={s.searchBox}>
       <label className={s.label} htmlFor="">
         Find contacts by name
         <input
