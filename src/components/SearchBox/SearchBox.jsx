@@ -4,7 +4,13 @@ const SearchBox = ({ dataRequest }) => {
     <div>
       <label className={s.label} htmlFor="">
         Find contacts by name
-        <input type="text" name="userName" id="" onChange={dataRequest} />
+        <input
+          className={s.input}
+          type="text"
+          name="userName"
+          id=""
+          onChange={dataRequest}
+        />
       </label>
     </div>
   );

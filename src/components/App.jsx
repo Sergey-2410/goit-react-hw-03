@@ -4,6 +4,7 @@ import ContactList from './ContactList/ContactList';
 import ContactForm from './ContactForm/ContactForm';
 import SearchBox from './SearchBox/SearchBox';
 import { useState } from 'react';
+import { nanoid } from 'nanoid';
 
 const App = () => {
   const data = [
@@ -14,6 +15,7 @@ const App = () => {
   ];
   const [contacts, setContacts] = useState(data);
   const [value, setValue] = useState('');
+
   const dataRequest = e => {
     setValue(e.target.value);
   };
@@ -21,13 +23,27 @@ const App = () => {
   const filterContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(value.toLowerCase())
   );
+  const handleDelete = id => {
+    setContacts(prev => prev.filter(contact => contact.id !== id));
+  };
+  const handleAdd = ({ username, tel }) => {
+    const newContact = {
+      id: nanoid(),
+      name: username,
+      number: tel,
+    };
+    setContacts(prev => [...prev, newContact]);
+  };
 
   return (
     <div>
       <h1>Phonebook</h1>
-      <ContactForm />
+      <ContactForm handleAdd={handleAdd} />
       <SearchBox dataRequest={dataRequest} />
-      <ContactList data={data} filterContacts={filterContacts} />
+      <ContactList
+        filterContacts={filterContacts}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 };
